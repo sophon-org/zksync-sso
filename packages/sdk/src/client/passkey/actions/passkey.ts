@@ -128,7 +128,11 @@ export const requestPasskeyAuthentication = async (args: RequestPasskeyAuthentic
     challenge: toBytes(args.challenge),
   });
   const optionsJSON: PublicKeyCredentialRequestOptionsJSON = { ...passkeyAuthenticationOptions };
-  const authenticationResponse: AuthenticationResponseJSON = await startAuthentication({ optionsJSON: { ...optionsJSON, allowCredentials: args.credential ? [args.credential] : [] } });
+  const authenticationResponse: AuthenticationResponseJSON = await startAuthentication({
+    optionsJSON: args.credential
+      ? { ...optionsJSON, allowCredentials: [args.credential] }
+      : { ...optionsJSON }
+  });
 
   let { rpID, origin } = identifyPasskeyParams();
   rpID = args.rpID || passkeyAuthenticationOptions.rpId || rpID;
