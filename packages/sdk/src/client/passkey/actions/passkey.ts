@@ -131,7 +131,7 @@ export const requestPasskeyAuthentication = async (args: RequestPasskeyAuthentic
   const authenticationResponse: AuthenticationResponseJSON = await startAuthentication({
     optionsJSON: args.credential
       ? { ...optionsJSON, allowCredentials: [args.credential] }
-      : { ...optionsJSON }
+      : { ...optionsJSON },
   });
 
   let { rpID, origin } = identifyPasskeyParams();
